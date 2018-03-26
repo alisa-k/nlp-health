@@ -209,7 +209,6 @@ print("Silhouette Coefficient: %0.3f"
 
 print()
 
-
 if not opts.use_hashing:
     print("Top terms per cluster:")
 
