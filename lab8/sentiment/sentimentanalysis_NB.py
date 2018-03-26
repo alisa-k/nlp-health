@@ -1,17 +1,12 @@
 # Run this script with command line argument
 # python sentimentanalysis_SVM.py /home/jalaj/PycharmProjects/NLPython/NLPython/ch8/sentimentanalysis/data  /home/jalaj/PycharmProjects/NLPython/NLPython/ch8/sentimentanalysis/data
 
-import sys
 import os
 import time
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import classification_report
-
-def usage():
-    print("Usage:")
-    print("python %s <data_dir>" % sys.argv[0])
 
 if __name__ == '__main__':
 
