@@ -91,9 +91,12 @@ def swn_polarity(text):
     # negative sentiment
     return 0
 
-pred_y = [swn_polarity(text) for text in test_X]
-print("SentiwordNet accuracy:")
-print(accuracy_score(test_y, pred_y)) # 0.6518
+#pred_y = [swn_polarity(text) for text in test_X]
+#print("SentiwordNet accuracy:")
+#print(accuracy_score(test_y, pred_y)) # 0.6518
+#unigram_clf = load_clf('classifiers/uni_clf.pkl')
+#bigram_clf = load_clf('classifiers/bi_clf.pkl')
+#unigram_bigram_clf = load_clf('classifiers/uni_bi_clf.pkl')
 ########################################################################
 # Unigram Classifier
 ########################################################################
@@ -108,7 +111,7 @@ clf = Pipeline([
  
 clf.fit(train_X, train_y)
 print("Unigram accuracy:")
-print(clf.score(test_X, test_y))
+print(unigram_clf.score(test_X, test_y))
 ########################################################################
 # Bigram Classifier
 ########################################################################
@@ -149,6 +152,7 @@ def save_clf(fname, clf):
         pkl.dump(clf, f)
 
 def load_clf(fname):
+    return pkl.load(open(fname, 'rb'))
     with open(fname, 'rb') as f:
         return pkl.load(fname)
 ########################################################################

@@ -117,7 +117,8 @@ def value_of(sentiment):
     if sentiment == 'negative': return -1
     return 0
 
-def sentence_score(sentence_tokens, previous_token, acum_score):    
+def sentence_score(sentence_tokens, previous_token, acum_score):
+    print("\n" + str(sentence_tokens) + "\ncurrent score: " + str(acum_score))
     if not sentence_tokens:
         return acum_score
     else:
@@ -143,6 +144,7 @@ if __name__ == "__main__":
     lack of atmosphere and too expensive. I am a staunch vegetarian and was 
     sorely dissapointed with the veggie options on the menu. Will be the last 
     time I visit, I recommend others to avoid."""
+    text = "This product never fails to kill bacteria"
 
     splitter = Splitter()
     postagger = POSTagger()
@@ -158,8 +160,6 @@ if __name__ == "__main__":
     dict_tagged_sentences = dicttagger.tag(pos_tagged_sentences)
     pprint(dict_tagged_sentences)
 
-    print("analyzing sentiment...")
     score = sentiment_score(dict_tagged_sentences)
-    print(score)
-
+    print("\nFinal Score: " + str(score))
 

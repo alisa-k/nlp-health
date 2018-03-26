@@ -199,8 +199,8 @@ if __name__ == "__main__":
     definegrammar_pasrereult()
     print ("\n--------Drawing Parse Tree-------")
     draw_parser_tree()
-    #print ("\n--------Stanford Parser result------")
-    #  stanford_parsing_result()
+    print ("\n--------Stanford Parser result------")
+    stanford_parsing_result()
 
 
 
