@@ -42,14 +42,17 @@ def pmid_to_abstract(pmid):
     handle = Entrez.efetch(db="pubmed", id=pmid ,
                        rettype="xml", retmode="text")
     records = Entrez.read(handle)
-    abstractlist = records['PubmedArticle'][0]['MedlineCitation']['Article']['Abstract']['AbstractText']
-    if len(abstractlist) > 1: 
-        abstract = ''
-        for eachsection in abstractlist: 
-            abstract += str(eachsection)
-        return abstract
-    else: 
-        return abstractlist[0]
+    try:
+        abstractlist = records['PubmedArticle'][0]['MedlineCitation']['Article']['Abstract']['AbstractText']
+        if len(abstractlist) > 1: 
+            abstract = ''
+            for eachsection in abstractlist: 
+                abstract += str(eachsection)
+            return abstract
+        else: 
+            return abstractlist[0]
+    except KeyError:
+        return "error"
 
 def get_data_txt(search_term):
     results = searchPubMed(search_term, 10)
@@ -66,16 +69,17 @@ def get_data_csv(search_term):
     results = searchPubMed(search_term, 30)
     pmid_list = results.get('IdList')
     
-    f = open("data/multi_class_data.csv", "a")
+    f = open("data/heart_attack.csv", "a")
     wr = csv.writer(f)
     for i in range(len(pmid_list)):
-        print(search_term + " " + str(i))
-        wr.writerow([pmid_list[i], search_term, pmid_to_abstract(pmid_list[i])])
+        if pmid_to_abstract(pmid_list[i]) != "error":
+            print(search_term + " " + str(i))
+            wr.writerow([pmid_list[i], search_term, pmid_to_abstract(pmid_list[i])])
     f.close()
         
 if __name__ == '__main__':
-    search_terms = ["breast", "foot", "ear"]
-    f = open("data/multi_class_data.csv", "w")
+    search_terms = ["heart attack"]
+    f = open("data/heart_attack.csv", "w")
     wr = csv.writer(f)
     wr.writerow(["pmid", "label", "abstract"])
     f.close()
