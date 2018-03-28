@@ -7,7 +7,7 @@ from sklearn.cross_validation import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 
 # get the data, divide it into training and testing data sets
-df = pd.read_csv('data/binary_classification_data.csv')
+df = pd.read_csv('../data/binary_classification_data.csv')
 df['label_num'] = df.label.map({'breast':0, 'foot':1})
 
 X = df.abstract
@@ -24,9 +24,7 @@ X_test_dtm = vect.transform(X_test)
 lm = linear_model.LinearRegression()
 model = lm.fit(X_train_dtm, y_train)
 predictions = lm.predict(X_test_dtm)
-#lr_results = pd.DataFrame(list(zip(X_test, y_test, predictions)),
-#              columns=['abstract','expected', 'predicted'])
-print("Score:", model.score(X_test_dtm, y_test))
+print("Linear Regression Score:", model.score(X_test_dtm, y_test))
 
 ##### BINARY CLASSIFIER #####
 from sklearn import tree
@@ -35,6 +33,6 @@ from sklearn import metrics
 clf = tree.DecisionTreeClassifier(criterion='entropy')
 clf.fit(X_train_dtm, y_train)
 y_pred_class = clf.predict(X_test_dtm)
-print(metrics.accuracy_score(y_test, y_pred_class))
+print("Decision Tree Accuracy:", metrics.accuracy_score(y_test, y_pred_class))
 results = pd.DataFrame(list(zip(X_test, y_test, y_pred_class)),
               columns=['abstract','expected', 'predicted'])
